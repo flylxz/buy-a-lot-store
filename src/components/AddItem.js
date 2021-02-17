@@ -1,8 +1,6 @@
 import {
-  Paper,
   Container,
   Box,
-  Typography,
   TextField,
   TextareaAutosize,
   Button,
@@ -22,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
   column: {
     display: 'flex',
     flexDirection: 'column',
-    width: 200,
     justifyContent: 'space-between',
     width: 200,
     height: 150,
@@ -61,7 +58,7 @@ export const AddItem = () => {
               />
               <label htmlFor='contained-button-file'>
                 Изображение
-                <Button variant='contained' variant='outlined' component='span'>
+                <Button variant='outlined' component='span'>
                   +
                 </Button>
               </label>

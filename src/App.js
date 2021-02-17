@@ -24,7 +24,7 @@ const App = () => {
   const [filterOpen, setFilterOpen] = useState(false);
 
   return (
-    <Container maxWidth='md' className={appStyle.root}>
+    <Container maxWidth='md' justify='center'>
       <FloatFilterButton
         openFilter={setFilterOpen}
         styles={appStyle.filterButton}

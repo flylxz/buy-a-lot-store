@@ -71,9 +71,11 @@ export const Filter = ({ open, onClose }) => {
   };
 
   const handlePriceLimits = (num, type) => {
-    console.log(num, type);
     if (type === 'gte') {
-      dispatch(setGte(num));
+      dispatch(
+        setGte(currency === 'UAH' ? num : Math.ceil(num * exchangeRate))
+      );
+      // dispatch(setGte(num));
     } else {
       dispatch(setLte(num));
     }
@@ -114,13 +116,13 @@ export const Filter = ({ open, onClose }) => {
             style={{ margin: ' 1rem 0 0 1rem' }}
             value={currency}
             exclusive
-            onChange={handleCurrency}
           >
             {currencies.map((curr) => (
               <ToggleButton
                 key={curr.value}
                 value={curr.value}
                 variant='contained'
+                onClick={handleCurrency}
               >
                 {curr.value}
               </ToggleButton>
