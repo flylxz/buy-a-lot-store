@@ -29,12 +29,14 @@ const useStyles = makeStyles((theme) => ({
 export const AddItem = () => {
   const addItemStyle = useStyles();
   return (
-    <Container spacing={3}>
+    <Container spacing={3} maxWidth='xl'>
       <Box
         my={5}
         style={{
           display: 'flex',
           justifyContent: 'center',
+          backgroundColor: '#fff',
+          borderTop: '2px solid #eee',
         }}
       >
         <FormControl

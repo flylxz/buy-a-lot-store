@@ -1,13 +1,13 @@
-###About The Project
+### About The Project
 Store with filters
 
-###Built With
+### Built With
 
 - ReactJS
 - Material UI
 - JSON Server
 
-###Installation
+### Installation
 Clone the repo
 
 ```sh
