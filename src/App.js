@@ -1,58 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useState } from 'react';
+import { Container, makeStyles } from '@material-ui/core';
+import { AddItem, Filter, ProductsGrid, FloatFilterButton } from './components';
 
-function App() {
+const useStyles = makeStyles({
+  root: {
+    margin: 0,
+    padding: 0,
+    boxSizing: 'border-box',
+  },
+  filterButton: {
+    position: 'fixed',
+    left: 20,
+    top: 20,
+  },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+});
+
+const App = () => {
+  const appStyle = useStyles();
+  const [filterOpen, setFilterOpen] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Container maxWidth='md' className={appStyle.root}>
+      <FloatFilterButton
+        openFilter={setFilterOpen}
+        styles={appStyle.filterButton}
+      />
+      <Filter open={filterOpen} onClose={() => setFilterOpen(false)} />
+      <ProductsGrid />
+      <AddItem />
+    </Container>
   );
-}
+};
 
 export default App;
