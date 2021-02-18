@@ -1,4 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { Collapse } from '@material-ui/core/';
+
 import { Alert } from '@material-ui/lab/';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,8 +18,8 @@ export const SimpleAlert = ({ message, type }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Collapse in={!!message} className={classes.root}>
       <Alert severity={type}>{message}</Alert>
-    </div>
+    </Collapse>
   );
 };

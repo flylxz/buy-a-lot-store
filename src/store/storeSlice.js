@@ -58,16 +58,3 @@ const storeSlice = createSlice({
 export default storeSlice.reducer;
 
 export const { setGte, setLte, setSort, setCurrency } = storeSlice.actions;
-
-// export const fetchProducts = (state) => async (dispatch) => {
-//   try {
-//     const data = await fetch(
-//       `http://localhost:5000/products?_sort=${state.sort}&price_gte=${state.gte}&price_lte=${state.lte}&_order=${state.order}`
-//     );
-//     const res = await data.json();
-//     console.log(res);
-//     dispatch(res);
-//   } catch (error) {
-//     console.log('error: ', error.message);
-//   }
-// };

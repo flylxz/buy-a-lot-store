@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Drawer, Container } from '@material-ui/core';
 
@@ -5,52 +6,69 @@ import { setGte, setLte, setSort, setCurrency } from '../store/storeSlice';
 
 import { SortBy, CurrencyChanger, PriceLimiter } from './filterComponents';
 
+const currencies = [
+  { name: 'USD', value: 'USD' },
+  { name: 'UAH', value: 'UAH' },
+];
+
+const sorting = [
+  {
+    name: 'По возрастанию цены',
+    value: 'price_asc',
+    dataSort: 'price',
+    dataOrder: 'asc',
+  },
+  {
+    name: 'По убыванию цены',
+    value: 'price_desc',
+    dataSort: 'price',
+    dataOrder: 'desc',
+  },
+  {
+    name: 'По алфавиту',
+    value: 'name_asc',
+    dataSort: 'name',
+    dataOrder: 'asc',
+  },
+];
+
 export const Filter = ({ open, onClose }) => {
-  const { gte, lte, sort, order, currency, exchangeRate } = useSelector(
-    (state) => state
-  );
+  const {
+    gte,
+    lte,
+    sort,
+    order,
+    currency,
+    exchangeRate,
+    products,
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  const [gteValue, setGteValue] = useState(gte);
+  const [lteValue, setLteValue] = useState(lte);
 
   const fromTo = [
     {
       dataType: 'gte',
       label: 'От',
       type: 'number',
-      value: currency === 'UAH' ? gte : Math.ceil(gte * exchangeRate),
-      inputProps: { inputProps: { min: 0, max: lte } },
+      // value: gteValue,
+      value:
+        currency === 'UAH'
+          ? Math.min(...products.map((p) => p.price))
+          : Math.ceil(Math.min(...products.map((p) => p.price)) * exchangeRate),
+      inputProps: { inputProps: { min: gte, max: lte } },
     },
     {
       dataType: 'lte',
       label: 'До',
       type: 'number',
-      value: currency === 'UAH' ? lte : Math.ceil(lte * exchangeRate),
-      inputProps: { inputProps: { min: 0, max: lte } },
-    },
-  ];
-
-  const currencies = [
-    { name: 'USD', value: 'USD' },
-    { name: 'UAH', value: 'UAH' },
-  ];
-
-  const sorting = [
-    {
-      name: 'По возрастанию цены',
-      value: 'price_asc',
-      dataSort: 'price',
-      dataOrder: 'asc',
-    },
-    {
-      name: 'По убыванию цены',
-      value: 'price_desc',
-      dataSort: 'price',
-      dataOrder: 'desc',
-    },
-    {
-      name: 'По алфавиту',
-      value: 'name_asc',
-      dataSort: 'name',
-      dataOrder: 'asc',
+      // value: lteValue,
+      value:
+        currency === 'UAH'
+          ? Math.max(...products.map((p) => p.price))
+          : Math.ceil(Math.max(...products.map((p) => p.price)) * exchangeRate),
+      inputProps: { inputProps: { min: gte, max: lte } },
     },
   ];
 
@@ -61,12 +79,13 @@ export const Filter = ({ open, onClose }) => {
   };
 
   const handlePriceLimits = (num, type) => {
+    // const convertedNum = currency === 'UAH' ? +num : +num * exchangeRate;
+    // console.log(num, convertedNum);
     if (type === 'gte') {
-      dispatch(
-        setGte(currency === 'UAH' ? num : Math.ceil(num * exchangeRate))
-      );
-      // dispatch(setGte(num));
+      setGteValue(num);
+      dispatch(setGte(num));
     } else {
+      setLteValue(num);
       dispatch(setLte(num));
     }
   };

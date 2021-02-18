@@ -1,4 +1,5 @@
 ### About The Project
+
 Store with filters
 
 ### Built With
@@ -8,6 +9,7 @@ Store with filters
 - JSON Server
 
 ### Installation
+
 Clone the repo
 
 ```sh
@@ -34,5 +36,5 @@ npm start
 
 ### Need to fix:
 
-- in USD input to / from fields does not work
+- filter to / from does not work
 - different layout fixes
